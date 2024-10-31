@@ -18,6 +18,8 @@ public class Basket {
     @Setter
     List<Product> products;
     @Setter
+    double value;
+    @Setter
     Enum<BasketStatus> status;
 
     public void changeBasketOwner(User owner) {
@@ -42,5 +44,19 @@ public class Basket {
         }
 
         this.owner = owner;
+    }
+
+    public void incrementValue(double value) {
+        this.value += value;
+    }
+
+    public void decrementValue(double value) {
+        this.value -= value;
+    }
+
+    public void reset() {
+        products.clear();
+        value = 0;
+        status = BasketStatus.ABANDONED; //necessary??
     }
 }

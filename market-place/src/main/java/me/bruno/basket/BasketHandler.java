@@ -19,7 +19,7 @@ public class BasketHandler {
             }
         }
 
-        Basket basket = new Basket(user, uuid, empty, BasketStatus.ACTIVE);
+        Basket basket = new Basket(user, uuid, empty, 0, BasketStatus.ACTIVE);
         baskets.add(basket);
         System.out.println("Successfully registered basket >> " + uuid + " <<");
     }
@@ -35,16 +35,39 @@ public class BasketHandler {
             }
         }
 
-        Basket basket = new Basket(user, uuid, empty, BasketStatus.ACTIVE);
+        Basket basket = new Basket(user, uuid, empty, product.getPrice(), BasketStatus.ACTIVE);
         baskets.add(basket);
         System.out.println("Successfully registered basket >> " + uuid + " <<");
     }
 
+    public static Basket findByOwner(User owner) {
+        for (Basket basket : baskets) {
+            if (basket.getOwner() == owner) {
+                return basket;
+            }
+        }
+
+        return null;
+    }
+
     public static void addToBasket(Basket basketToUpdate, Product product) {
         for (Basket basket : baskets) {
-            if (Objects.equals(basket.getUuid(), basket.getUuid())) {
+            if (Objects.equals(basket.getUuid(), basketToUpdate.getUuid())) {
+                System.out.println("Successfully added " + product.getName() + " to basket >> " + basketToUpdate.getUuid() + " <<");
+                basket.incrementValue(product.getPrice());
                 basket.getProducts().add(product);
             }
         }
     }
+
+    public static void removeFromBasket(Basket basketToUpdate, Product product) {
+        for (Basket basket : baskets) {
+            if (Objects.equals(basket.getUuid(), basketToUpdate.getUuid())) {
+                System.out.println("Successfully removed " + product.getName() + " to basket >> " + basketToUpdate.getUuid() + " <<");
+                basket.decrementValue(product.getPrice());
+                basket.getProducts().remove(product);
+            }
+        }
+    }
+
 }

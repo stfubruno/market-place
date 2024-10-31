@@ -3,6 +3,6 @@ package me.bruno.discount;
 import lombok.Getter;
 
 @Getter
-public enum DiscountStatus {
-    ACTIVE, INACTIVE
+public enum DiscountType {
+    PERCENTAGE, VALUE
 }
