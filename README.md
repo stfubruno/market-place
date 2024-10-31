@@ -1,8 +1,6 @@
 <h1>Market Place</h1>
-<hr><p>This project is a Java-based marketplace application with MongoDB integration for data storage. It features a modular structure, divided into several packages to handle various aspects of the marketplace.</p><h2>General Information</h2>
-<hr><ul>
-<li>This structure allows for easy expansion and modification, making it ideal for testing new marketplace features or experimenting with various functionalities in a controlled environment.</li>
-</ul><h2>Technologies Used</h2>
+<hr><p>This project is a Java-based marketplace application with MongoDB integration for data storage. It features a modular structure, divided into several packages to handle various aspects of the marketplace.</p>
+<p>This structure allows for easy expansion and modification, making it ideal for testing new marketplace features or experimenting with various functionalities in a controlled environment.</p><h2>Technologies Used</h2>
 <hr><ul>
 <li>Java</li>
 </ul><ul>
@@ -18,3 +16,11 @@
 <li>Product Module: Manages product information using Product and ProductHandler classes, allowing for product details and inventory control.</li>
 </ul><ul>
 <li>User Module: Deals with user-related functionality, represented by the User class, managing user data and profiles.</li>
+</ul><h2>Improvements</h2>
+<hr><ul>
+<li>Add database [mongodb]</li>
+</ul><ul>
+<li>More features</li>
+</ul><ul>
+<li>Apply unused codes at live code &amp; revamp menus</li>
+</ul>
