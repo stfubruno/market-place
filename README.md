@@ -18,5 +18,3 @@
 <li>Product Module: Manages product information using Product and ProductHandler classes, allowing for product details and inventory control.</li>
 </ul><ul>
 <li>User Module: Deals with user-related functionality, represented by the User class, managing user data and profiles.</li>
-</ul><h2>Contact</h2>
-<hr><p><span style="margin-right: 30px;"></span><a href="stfubruno"><img target="_blank" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" style="width: 10%;"></a></p>
