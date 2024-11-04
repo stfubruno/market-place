@@ -2,7 +2,7 @@
 
 ###
 
-<h5 align="center">This project is a Java-based marketplace application with MongoDB integration for data storage. It features a modular structure, divided into several packages to handle various aspects of the marketplace.<br><br>This structure allows for easy expansion and modification, making it ideal for testing new marketplace features or experimenting with various functionalities in a controlled environment.</h5>
+<p align="center">This project is a Java-based marketplace application with MongoDB integration for data storage. It features a modular structure, divided into several packages to handle various aspects of the marketplace.<br><br>This structure allows for easy expansion and modification, making it ideal for testing new marketplace features or experimenting with various functionalities in a controlled environment.</p>
 
 ###
 
