@@ -8,6 +8,8 @@ import lombok.Getter;
 public class User {
 
     String name;
-    String id;
+    int id;
     String email;
+    String password;
+
 }

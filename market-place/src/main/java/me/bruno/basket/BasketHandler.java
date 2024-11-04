@@ -19,7 +19,7 @@ public class BasketHandler {
             }
         }
 
-        Basket basket = new Basket(user, uuid, empty, 0, BasketStatus.ACTIVE);
+        Basket basket = new Basket(user, uuid, empty, 0, BasketStatus.ACTIVE, System.currentTimeMillis(), null);
         baskets.add(basket);
         System.out.println("Successfully registered basket >> " + uuid + " <<");
     }
@@ -35,7 +35,27 @@ public class BasketHandler {
             }
         }
 
-        Basket basket = new Basket(user, uuid, empty, product.getPrice(), BasketStatus.ACTIVE);
+        Basket basket = new Basket(user, uuid, empty, product.getPrice(), BasketStatus.ACTIVE, System.currentTimeMillis(), null);
+        baskets.add(basket);
+        System.out.println("Successfully registered basket >> " + uuid + " <<");
+    }
+
+    public static void createBasket(User user, Product product, int quantity) {
+        List<Product> productList = new ArrayList<>();
+        UUID uuid = UUID.randomUUID();
+
+        for (int i = 0; i < quantity; i++) {
+            productList.add(product);
+        }
+
+        //duplicate prevention
+        for (Basket basket : baskets) {
+            if (basket.getUuid() == uuid) {
+                uuid = UUID.randomUUID();
+            }
+        }
+
+        Basket basket = new Basket(user, uuid, productList, (product.getPrice() * quantity), BasketStatus.ACTIVE, System.currentTimeMillis(), null);
         baskets.add(basket);
         System.out.println("Successfully registered basket >> " + uuid + " <<");
     }
@@ -53,9 +73,23 @@ public class BasketHandler {
     public static void addToBasket(Basket basketToUpdate, Product product) {
         for (Basket basket : baskets) {
             if (Objects.equals(basket.getUuid(), basketToUpdate.getUuid())) {
-                System.out.println("Successfully added " + product.getName() + " to basket >> " + basketToUpdate.getUuid() + " <<");
-                basket.incrementValue(product.getPrice());
                 basket.getProducts().add(product);
+                basket.incrementValue(product.getPrice());
+                System.out.println("Successfully added " + product.getName() + " to basket >> " + basketToUpdate.getUuid() + " <<");
+            }
+        }
+    }
+
+    public static void addToBasket(Basket basketToUpdate, Product product, int quantity) {
+        for (Basket basket : baskets) {
+            if (Objects.equals(basket.getUuid(), basketToUpdate.getUuid())) {
+                basket.incrementValue(product.getPrice() * quantity);
+
+                for (int i = 0; i < quantity; i++) {
+                    basket.getProducts().add(product);
+                }
+
+                System.out.println("Successfully added " + product.getName() + " to basket >> " + basketToUpdate.getUuid() + " <<");
             }
         }
     }
@@ -63,9 +97,9 @@ public class BasketHandler {
     public static void removeFromBasket(Basket basketToUpdate, Product product) {
         for (Basket basket : baskets) {
             if (Objects.equals(basket.getUuid(), basketToUpdate.getUuid())) {
-                System.out.println("Successfully removed " + product.getName() + " to basket >> " + basketToUpdate.getUuid() + " <<");
-                basket.decrementValue(product.getPrice());
                 basket.getProducts().remove(product);
+                basket.decrementValue(product.getPrice());
+                System.out.println("Successfully removed " + product.getName() + " to basket >> " + basketToUpdate.getUuid() + " <<");
             }
         }
     }

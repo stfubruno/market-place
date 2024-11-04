@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum DiscountStatus {
-    ACTIVE, INACTIVE
+    ACTIVE, INACTIVE, EXPIRED
 }

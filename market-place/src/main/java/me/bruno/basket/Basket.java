@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import me.bruno.Main;
+import me.bruno.discount.Discount;
 import me.bruno.product.Product;
 import me.bruno.user.User;
 
@@ -14,13 +15,23 @@ import java.util.*;
 public class Basket {
 
     User owner;
+
     UUID uuid;
+
     @Setter
     List<Product> products;
+
     @Setter
     double value;
+
     @Setter
     Enum<BasketStatus> status;
+
+    @Setter
+    long createdAt;
+
+    @Setter
+    Discount discountApplied;
 
     public void changeBasketOwner(User owner) {
         Scanner choice = new Scanner(System.in);
@@ -51,7 +62,10 @@ public class Basket {
     }
 
     public void decrementValue(double value) {
-        this.value -= value;
+        if (value <= 0) return;
+
+        //Ensure value does not go below 0
+        this.value = Math.max(0, this.value - value);
     }
 
     public void reset() {
@@ -59,4 +73,13 @@ public class Basket {
         value = 0;
         status = BasketStatus.ABANDONED; //necessary??
     }
+
+    public String getDiscountApplied() {
+        if (discountApplied == null) {
+            return "No discount applied";
+        }
+
+        return discountApplied.getName();
+    }
+
 }

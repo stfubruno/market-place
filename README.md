@@ -1,26 +1,27 @@
-<h1>Market Place</h1>
-<hr><p>This project is a Java-based marketplace application with MongoDB integration for data storage. It features a modular structure, divided into several packages to handle various aspects of the marketplace.</p>
-<p>This structure allows for easy expansion and modification, making it ideal for testing new marketplace features or experimenting with various functionalities in a controlled environment.</p><h2>Technologies Used</h2>
-<hr><ul>
-<li>Java</li>
-</ul><ul>
-<li>MongoDB</li>
-</ul><h2>Features</h2>
-<hr><ul>
-<li>Basket Module: Manages the shopping basket functionality, with classes like Basket and BasketHandler to handle basket operations, and BasketStatus to track the state of the basket.</li>
-</ul><ul>
-<li>Database Module: Interfaces with MongoDB, facilitating data persistence and retrieval for the marketplace items, users, and transactions.</li>
-</ul><ul>
-<li>Discount Module: Handles discount-related features, with classes like Discount, DiscountHandler, and DiscountStatus to apply and manage discounts on products.</li>
-</ul><ul>
-<li>Product Module: Manages product information using Product and ProductHandler classes, allowing for product details and inventory control.</li>
-</ul><ul>
-<li>User Module: Deals with user-related functionality, represented by the User class, managing user data and profiles.</li>
-</ul><h2>Improvements</h2>
-<hr><ul>
-<li>Add database [mongodb]</li>
-</ul><ul>
-<li>More features</li>
-</ul><ul>
-<li>Apply unused codes at live code &amp; revamp menus</li>
-</ul>
+<h1 align="center">Market Place</h1>
+
+###
+
+<h5 align="center">This project is a Java-based marketplace application with MongoDB integration for data storage. It features a modular structure, divided into several packages to handle various aspects of the marketplace.<br><br>This structure allows for easy expansion and modification, making it ideal for testing new marketplace features or experimenting with various functionalities in a controlled environment.</h5>
+
+###
+
+<h3 align="center">Technologies Used</h3>
+
+###
+
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-plain-wordmark.svg" height="35" alt="java logo"  />
+  <img width="20" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" height="35" alt="mongodb logo"  />
+</div>
+
+###
+
+<h3 align="center">Features</h3>
+
+###
+
+<p align="center">Basket Module: Manages the shopping basket functionality, with classes like Basket and BasketHandler to handle basket operations, and BasketStatus to track the state of the basket.<br><br>Database Module: Interfaces with MongoDB, facilitating data persistence and retrieval for the marketplace items, users, and transactions.<br><br>Discount Module: Handles discount-related features, with classes like Discount, DiscountHandler, and DiscountStatus to apply and manage discounts on products.<br><br>Product Module: Manages product information using Product and ProductHandler classes, allowing for product details and inventory control.<br><br>User Module: Deals with user-related functionality, represented by the User class, managing user data and profiles.</p>
+
+###

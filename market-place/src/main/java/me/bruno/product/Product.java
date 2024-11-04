@@ -9,11 +9,14 @@ import lombok.Setter;
 public class Product {
 
     String name;
+
     @Setter
     double price;
+
     long code;
+
     @Setter
     int amount;
-    boolean ageRestriction;
 
+    boolean ageRestriction;
 }

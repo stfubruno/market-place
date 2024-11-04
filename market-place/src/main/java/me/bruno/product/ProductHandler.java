@@ -2,10 +2,7 @@ package me.bruno.product;
 
 import me.bruno.utils.CodeGenerator;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ProductHandler {
     public static List<Product> products = new ArrayList<>();
@@ -42,7 +39,7 @@ public class ProductHandler {
 
     public static Product findByName(String name) {
         for (Product product : products) {
-            if (product.name.equals(name)) {
+            if (Objects.equals(name, product.name)) {
                 return product;
             }
         }
