@@ -1,70 +1,53 @@
 package me.bruno.discount;
 
-import me.bruno.basket.Basket;
+import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
+
+import static me.bruno.Main.Logger;
 
 public class DiscountHandler {
-    public static List<Discount> discounts = new ArrayList<>();
 
-    public static void createDiscount(String name, DiscountType type, int value) {
+    @Getter
+    private static final Map<UUID, Discount> discounts = new HashMap<>();
+
+    public static void createDiscount(String name, int value, String type) {
         UUID uuid = UUID.randomUUID();
 
-        //duplicate prevention
-        for (Discount discount : discounts) {
-            if (discount.getUuid() == uuid) {
-                uuid = UUID.randomUUID();
-            }
-        }
-
-        Discount discount = new Discount(name, uuid, value, DiscountStatus.ACTIVE, type);
-        discounts.add(discount);
-        System.out.println("Successfully registered discount >> " + name + " <<");
+        Discount discount = new Discount(uuid, name, value, type);
+        discounts.put(uuid, discount);
+        System.out.println(Logger + "Successfully registered discount: \"" + name + "\".");
     }
 
-    public static void removeDiscount(Discount discount) {
-        for (Discount discountsArray : discounts) {
-            if (discount.getUuid() == discountsArray.getUuid()) {
-                discounts.remove(discount);
-                System.out.println("Successfully unregistered discount >> " + discount.getName() + " <<");
-            }
+    public static void disableDiscount(Discount discount) {
+        for (Map.Entry<UUID, Discount> entry : DiscountHandler.getDiscounts().entrySet()) {
+            Discount discountEntry = entry.getValue();
+
+            if (!discountEntry.getUuid().equals(discount.getUuid()) || discount.getStatus() != DiscountStatus.ACTIVE) return;
+
+            discount.status = DiscountStatus.INACTIVE;
+            System.out.println(Logger + "Successfully inactivated discount: \"" + discount.getName() + "\".");
+        }
+    }
+
+    public static void enableDiscount(Discount discount) {
+        for (Map.Entry<UUID, Discount> entry : DiscountHandler.getDiscounts().entrySet()) {
+            Discount discountEntry = entry.getValue();
+
+            if (!discountEntry.getUuid().equals(discount.getUuid()) || discount.getStatus() != DiscountStatus.INACTIVE) return;
+
+            discount.status = DiscountStatus.ACTIVE;
+            System.out.println(Logger + "Successfully activated discount: \"" + discount.getName() + "\".");
         }
     }
 
     public static Discount findByName(String name) {
-        for (Discount discount : discounts) {
-            if (Objects.equals(discount.getName(), name)) {
-                return discount;
-            }
+        for (Map.Entry<UUID, Discount> entry : DiscountHandler.getDiscounts().entrySet()) {
+            Discount discount = entry.getValue();
+
+            if (Objects.equals(discount.getName(), name)) return discount;
         }
 
         return null;
-    }
-
-    public static void applyDiscount(Basket basket, Discount discount) {
-        if (discount.getStatus() != DiscountStatus.ACTIVE) {
-            return; // Exit if the discount is not active
-        }
-
-        for (Discount discountsArray : discounts) {
-            if (discountsArray.getUuid() == discount.getUuid()) {
-                switch (discount.getType()) {
-                    case DiscountType.PERCENTAGE -> {
-                        basket.decrementValue(basket.getValue() * discount.decimalValue(discount.getValue()));
-                        basket.setDiscountApplied(discount);
-                    }
-
-                    case DiscountType.VALUE -> {
-                        basket.decrementValue(discount.getValue());
-                        basket.setDiscountApplied(discount);
-                    }
-
-                    default -> throw new IllegalStateException("Unexpected value: " + discount.getType());
-                }
-            }
-        }
     }
 }

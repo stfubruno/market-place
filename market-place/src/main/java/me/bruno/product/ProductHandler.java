@@ -1,19 +1,37 @@
 package me.bruno.product;
 
+import com.mongodb.client.MongoCollection;
+import lombok.Getter;
+import me.bruno.database.Mongo;
 import me.bruno.utils.CodeGenerator;
+import org.bson.Document;
 
 import java.util.*;
 
-public class ProductHandler {
-    public static List<Product> products = new ArrayList<>();
+import static me.bruno.Main.Logger;
 
-    public static void registerProduct(String name, double price, int quantity, boolean ageRestriction) {
+public class ProductHandler {
+
+    @Getter
+    private static final Map<Long, Product> products = new HashMap<>();
+
+    private static MongoCollection<Document> collection;
+
+    public static void initialize() {
+        collection = Mongo.getMongoDatabase().getCollection("products", Document.class);
+    }
+
+    public void load(String ownerName) {
+
+    }
+
+    public static void registerProduct(String name, double price, int units, boolean ageRestriction) {
         long twelveDigitLong = CodeGenerator.create12DigitLong();
 
-        //duplicate prevention
-        for (Product product : products) {
+        for (Map.Entry<Long, Product> entry : products.entrySet()) {
+            Product product = entry.getValue();
             if (product.name.equals(name)) {
-                System.out.print("A product with name " + product.name + " already exists.");
+                System.out.print(Logger + "A product with name " + product.name + " already exists.");
                 return;
             }
 
@@ -22,14 +40,20 @@ public class ProductHandler {
             }
         }
 
-        Product product = new Product(name, price, twelveDigitLong, quantity, ageRestriction);
-        products.add(product);
-        System.out.println("Successfully registered " + quantity + " " + product.name + ". [" + product.code + "]");
+        if (products.containsKey(twelveDigitLong)) {
+            twelveDigitLong = CodeGenerator.create12DigitLong();
+        }
+
+        Product product = new Product(name, price, twelveDigitLong, units, ageRestriction);
+
+        products.put(twelveDigitLong, product);
+        System.out.println(Logger + "Successfully registered " + units + " units of '" + product.name + "' (Code: " + product.code + ").");
     }
 
     public static Product findById(long code) {
-        for (Product product : products) {
-            if (product.code == code) {
+        for (Map.Entry<Long, Product> entry : products.entrySet()) {
+            Product product = entry.getValue();
+            if (Objects.equals(product.code, code)) {
                 return product;
             }
         }
@@ -38,8 +62,9 @@ public class ProductHandler {
     }
 
     public static Product findByName(String name) {
-        for (Product product : products) {
-            if (Objects.equals(name, product.name)) {
+        for (Map.Entry<Long, Product> entry : products.entrySet()) {
+            Product product = entry.getValue();
+            if (Objects.equals(product.name, name)) {
                 return product;
             }
         }
@@ -47,8 +72,11 @@ public class ProductHandler {
         return null;
     }
 
+    //to be removed.
     public static void manageProduct(Product productToManage) {
-        for (Product product : products) {
+        for (Map.Entry<Long, Product> entry : products.entrySet()) {
+            Product product = entry.getValue();
+
             if (product == productToManage) {
                 System.out.print("\n1 -> Manage Price\n");
                 System.out.print("2 -> Manage Amount\n");
@@ -106,7 +134,7 @@ public class ProductHandler {
                             }
                         }
 
-                        productToManage.setAmount(userAmountChoice);
+                        productToManage.setUnits(userAmountChoice);
                         break;
                     case 9:
                     default:

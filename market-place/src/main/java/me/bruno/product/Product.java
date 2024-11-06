@@ -16,7 +16,18 @@ public class Product {
     long code;
 
     @Setter
-    int amount;
+    int units;
 
     boolean ageRestriction;
+
+    public void incrementUnits(int value) {
+        this.units += value;
+    }
+
+    public void decrementUnits(int value) {
+        if (value <= 0) return;
+
+        //Ensure value does not go below 0
+        this.units = Math.max(0, this.units - value);
+    }
 }

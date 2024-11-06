@@ -18,9 +18,9 @@ public class Mongo {
     public static MongoClient mongoClient;
 
     @Getter
-    public MongoDatabase mongoDatabase;
+    public static MongoDatabase mongoDatabase;
 
-    public Mongo() {
+    public static void initialize() {
         try {
             // Load JSON configuration from resources
             InputStream input = Main.class.getClassLoader().getResourceAsStream("config.json");

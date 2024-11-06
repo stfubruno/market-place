@@ -6,20 +6,14 @@ public class CodeGenerator {
 
     public static long create12DigitLong() {
         Random random = new Random();
-        long randomLong = random.nextLong();
 
-        // Ensure the long is 12 digits or less
-        while (Long.toString(randomLong).length() > 12) {
-            randomLong = random.nextLong();
+        long randomLong = Math.abs(random.nextLong()) % 1_000_000_000_000L;
+
+        while (Long.toString(randomLong).length() < 12) {
+            randomLong = randomLong * 10;
         }
 
-        // Pad with leading zeros if necessary
-        String randomLongStr = Long.toString(randomLong);
-        while (randomLongStr.length() < 12) {
-            randomLongStr = "0" + randomLongStr;
-        }
-
-        return Long.parseLong(randomLongStr);
+        return randomLong;
     }
 
 }

@@ -9,9 +9,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Discount {
 
-    String name;
-
     UUID uuid;
+
+    String name;
 
     double value;
 
@@ -19,6 +19,9 @@ public class Discount {
 
     Enum<DiscountType> type;
 
+    public Discount(UUID uuid, String name, double value, String type) {
+        this(uuid, name, value, DiscountStatus.ACTIVE, DiscountType.valueOf(type.toUpperCase()));
+    }
 
     public final double decimalValue(double value) {
         return (value / 100);
